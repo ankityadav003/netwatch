@@ -1,0 +1,211 @@
+/* --- Responsive Design for NetWatch Dashboard --- */
+
+/* Initially hide the mobile menu toggle button on larger screens */
+.menu-toggle-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
+    z-index: 1002; /* Ensure it's on top */
+}
+.menu-toggle-btn::after
+{
+    content: none;
+}
+
+/* -- Tablet View -- */
+/* On screens smaller than 1200px */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mid-grid {
+        grid-template-columns: 1fr; /* Stack chart and recent packets */
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+}
+
+
+/* -- Mobile View -- */
+/* On screens smaller than 768px */
+@media (max-width: 768px) {
+    :root {
+        /* Keep variable for sidebar transition calculations */
+        --sidebar-width: 260px;
+    }
+
+    .dashboard-container {
+        /* Change to a single-column layout, sidebar will be overlaid */
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Sidebar Off-Canvas Styling --- */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1001; /* Above main content, below modal */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+        border-right: none;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    /* Show the hamburger menu button on mobile */
+    .menu-toggle-btn {
+        display: block;
+    }
+
+    /* --- Header Adjustments --- */
+    .main-header {
+        flex-direction: row; /* Revert to a row for mobile header items */
+        flex-wrap: wrap; /* Allow items to wrap */
+        align-items: center;
+        gap: 0.5rem; /* Reduce gap */
+    }
+
+    .main-header h2 {
+        flex-grow: 1; /* Allow title to take remaining space */
+        text-align: left;
+        font-size: 1.2rem;
+        margin-left: 1rem;
+    }
+
+    .search-container {
+        margin-top: 1rem;
+        order: 3; /* Make it appear on the next line */
+        width: 100%;
+    }
+
+    /* --- Content and Card Adjustments --- */
+    .main-content {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack all stat cards vertically */
+    }
+
+    .stat-card {
+        padding: 1rem;
+        flex-direction: row;
+    }
+
+    .stat-info h3 {
+        font-size: 1.5rem;
+    }
+
+    /* FIX: Control height of mid-grid elements */
+    .mid-grid {
+        min-height: auto;
+    }
+
+    .chart-card .chart-wrapper {
+        /* Give chart a specific height to avoid it expanding too much */
+        height: 300px;
+    }
+
+    /* --- Table Adjustments for Readability --- */
+    table {
+        font-size: 0.8rem; /* Smaller font for better fit */
+    }
+
+    table th,
+    table td {
+        padding: 0.6rem 0.5rem;
+    }
+
+    .summary-cell {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* FIX: Hide less-critical columns on mobile for the detailed packet view */
+    #packetSections table .user-header th:nth-child(4), /* Src Location */
+    #packetSections table .user-header th:nth-child(5), /* Dst Location */
+    #packetSections table .user-header th:nth-child(7), /* Summary */
+    #packetSections table tbody td:nth-child(4),
+    #packetSections table tbody td:nth-child(5),
+    #packetSections table tbody td:nth-child(7) {
+        display: none;
+    }
+
+    /* Adjust remaining column widths for the user view */
+    #packetSections table .user-header th:nth-child(2),
+    #packetSections table tbody td:nth-child(2),
+    #packetSections table .user-header th:nth-child(3),
+    #packetSections table tbody td:nth-child(3) {
+        width: 25%; /* Give more space to Source/Dest IP */
+    }
+
+    /* --- Modal and Pop-up Adjustments --- */
+    .modal-content {
+        width: 90vw; /* Use viewport width */
+        max-width: 400px;
+        padding: 1.5rem;
+    }
+
+    .animate-container {
+        width: 95vw;
+        height: auto;
+    }
+    
+    .startmodal {
+        width: 90%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .guest-cta-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    /* --- Pagination and Buttons --- */
+    .pagination-controls {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 1rem;
+    }
+    
+    .scroll-buttons-container {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .scroll-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
+
+
